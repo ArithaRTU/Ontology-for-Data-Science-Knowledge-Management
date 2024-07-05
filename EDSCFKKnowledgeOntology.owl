@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/ontologies/EDSFKnowledgeOntology#"
+     xml:base="http://www.semanticweb.org/ontologies/EDSFKnowledgeOntology"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/ontologies/EDSFKnowledgeOntology"/>
+
+    <!-- Classes -->
+    <owl:Class rdf:ID="DSConcept"/>
+    <owl:Class rdf:ID="CFDSKnowledgeUnit"/>
+    <owl:Class rdf:ID="CFDSSkill"/>
+    <owl:Class rdf:ID="DSProjectAttribute"/>
+    <owl:Class rdf:ID="DSProjectAttributeValue"/>
+    <owl:Class rdf:ID="DSProject"/>
+    <owl:Class rdf:ID="DSProjectDomain"/>
+    <owl:Class rdf:ID="DSResourceConcept">
+        <rdfs:subClassOf rdf:resource="#DSConcept"/>
+    </owl:Class>
+    <owl:Class rdf:ID="DSKeyWordConcept">
+        <rdfs:subClassOf rdf:resource="#DSConcept"/>
+    </owl:Class>
+
+    <!-- Object Properties -->
+    <owl:ObjectProperty rdf:ID="relatesToKnowledgeUnit">
+        <rdfs:domain rdf:resource="#DSProjectAttribute"/>
+        <rdfs:range rdf:resource="#CFDSKnowledgeUnit"/>
+    </owl:ObjectProperty>
+    
+    <owl:ObjectProperty rdf:ID="relatesToSkill">
+        <rdfs:domain rdf:resource="#DSProjectAttribute"/>
+        <rdfs:range rdf:resource="#CFDSSkill"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:ID="relatesToDSConcept">
+        <rdfs:domain rdf:resource="#DSProjectAttribute"/>
+        <rdfs:range rdf:resource="#DSConcept"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:ID="referencesConcept">
+        <rdfs:domain rdf:resource="#DSConcept"/>
+        <rdfs:range>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="#DSKeyWordConcept"/>
+                    <rdf:Description rdf:about="#DSResourceConcept"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:range>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:ID="isA">
+        <rdfs:domain rdf:resource="#DSProjectAttributeValue"/>
+        <rdfs:range rdf:resource="#DSProjectAttribute"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:ID="hasDSProjectAttributeValue">
+        <rdfs:domain rdf:resource="#DSProject"/>
+        <rdfs:range rdf:resource="#DSProjectAttributeValue"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:ID="hasDSProjectAttribute">
+        <rdfs:domain rdf:resource="#DSProject"/>
+        <rdfs:range rdf:resource="#DSProjectAttribute"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:ID="relatesToDSProjectDomain">
+        <rdfs:domain rdf:resource="#DSProject"/>
+        <rdfs:range rdf:resource="#DSProjectDomain"/>
+    </owl:ObjectProperty>
+
+    <!-- Instances -->
+    <!-- DSConcept Instances -->
+    <DSConcept rdf:ID="Supervised_Machine_Learning_Algorithm">
+        <referencesConcept rdf:resource="#Machine_Learning"/>
+        <referencesConcept rdf:resource="#Supervised"/>
+        <referencesConcept rdf:resource="#Algorithm"/>
+    </DSConcept>
+
+    <!-- CFDSKnowledgeUnit Instances -->
+    <CFDSKnowledgeUnit rdf:ID="KDSDA01"/>
+
+    <!-- CFDSSkill Instances -->
+    <CFDSSkill rdf:ID="SDSDA01"/>
+
+    <!-- DSProjectAttribute Instances -->
+    <DSProjectAttribute rdf:ID="Machine_Learning_TechnologyAlgorithmTool_Used">
+        <relatesToDSConcept rdf:resource="#Machine_Learning_Algorithm"/>
+        <relatesToSkill rdf:resource="#SDSDA01"/>
+        <relatesToKnowledgeUnit rdf:resource="#KDSDA01"/>
+    </DSProjectAttribute>
+
+    <!-- DSProjectAttributeValue Instances -->
+    <DSProjectAttributeValue rdf:ID="Decision_Trees">
+        <isA rdf:resource="#Machine_Learning_Technology/Algorithm/Tool_Used"/>
+    </DSProjectAttributeValue>
+
+    <!-- DSProject Instances -->
+    <DSProject rdf:ID="Project_ABC">
+        <hasDSProjectAttribute rdf:resource="#Machine_Learning_Technology/Algorithm/Tool_Used"/>
+        <hasDSProjectAttributeValue rdf:resource="#Decision_Trees"/>
+        <relatesToDSProjectDomain rdf:resource="#Medical"/>
+    </DSProject>
+
+    <!-- DSProjectDomain Instances -->
+    <DSProjectDomain rdf:ID="Medical"/>
+    <!-- DSKeyWordConcept Instances -->
+    <DSKeyWordConcept rdf:ID="Machine_Learning"/>
+    <DSKeyWordConcept rdf:ID="Unsupervised"/>
+    <DSKeyWordConcept rdf:ID="Supervised"/>
+    <DSKeyWordConcept rdf:ID="Reinforced"/>
+
+    <!-- DSResourceConcept Instances -->
+    <DSResourceConcept rdf:ID="Algorithm"/>
+    <DSResourceConcept rdf:ID="Technology"/>
+    <DSResourceConcept rdf:ID="Tool"/>
+
+</rdf:RDF>
